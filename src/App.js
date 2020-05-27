@@ -10,6 +10,7 @@ function App() {
       <Header/>
       <Switch>
         <Route exact path="/" component={Productos}/> 
+        <Route exact path="/productos/nuevo" />
       </Switch>
     </Router>
   );
