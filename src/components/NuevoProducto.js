@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { crearNuevoProductoAction } from '../actions/productoActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const NuevoProducto = () => {
 
-// Utilizar use dispatch y te crea una funcion
-const dispath = useDispatch();
+  const [ nombre, guardarNombre ] = useState('');
+  const [ precio, guardarPrecio ] = useState(0);
 
-//Mandar a llamar el action de productoAction
-const agregarProducto = () => dispath(crearNuevoProductoAction());
-
-const submitNuevoProducto = e => {
-  e.preventDefault();
-  agregarProducto();
-}
+  // Utilizar use dispatch y te crea una funcion
+  const dispath = useDispatch();
+  
+  //Mandar a llamar el action de productoAction
+  const agregarProducto = (producto) => dispath(crearNuevoProductoAction(producto));
+  
+  const submitNuevoProducto = e => {
+    e.preventDefault();
+    if ( nombre.trim() === '' || precio <= 0 ) {
+      console.log('Error');
+      return;
+    }
+    agregarProducto({
+      nombre,
+      precio
+    });
+  }
 
 
   return (
@@ -30,6 +40,8 @@ const submitNuevoProducto = e => {
                       className="form-control"
                       placeholder="Nombre Producto"
                       name="nombre"
+                      value={nombre}
+                      onChange={e => guardarNombre(e.target.value)}
                     />
                 </div>
 
@@ -40,6 +52,8 @@ const submitNuevoProducto = e => {
                       className="form-control"
                       placeholder="Precio Producto"
                       name="precio"
+                      value={precio}
+                      onChange={e => guardarPrecio(Number(e.target.value))}
                     />
                 </div>
                 <button
