@@ -7,7 +7,10 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGAR_PRODUCTOS,
     DESCARGAR_PRODUCTO_EXITO,
-    DESCARGAR_PRODUCTO_ERROR
+    DESCARGAR_PRODUCTO_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR,
 } from '../type';
 
 //Crear nuevos productos
@@ -81,3 +84,37 @@ const descargaProductoError = () => ({
     type: DESCARGAR_PRODUCTO_ERROR,
     payload: true
 });
+
+export function borrarProductoAction (id) {
+
+    return async (dispatch) => {
+         dispatch(obtenerProductoEliminar(id));
+
+         try {
+             await clienteAxios.delete(`/productos/${id}`);
+             dispatch(eliminarProductoExito());
+
+             Swal.fire(
+                'Elimidando!',
+                'El producto fue eliminado correctamente.',
+                'success'
+              )
+         } catch (error) {
+           dispatch(eliminarProductoError());
+         }
+    }
+}
+
+const obtenerProductoEliminar = id => ({
+    type:OBTENER_PRODUCTO_ELIMINAR,
+    payload: id
+});
+
+const eliminarProductoExito = () => ({
+    type: PRODUCTO_ELIMINADO_EXITO
+});
+
+const eliminarProductoError = () => ({
+    type: PRODUCTO_ELIMINADO_ERROR,
+    payload: true
+})
