@@ -49,6 +49,11 @@
       "nombre": "Jugo de lechoza",
       "precio": 50,
       "id": 10
+    },
+    {
+      "nombre": "Jugo de Remolacha",
+      "precio": 50,
+      "id": 11
     }
   ]
 }
