@@ -19,6 +19,11 @@
       "nombre": "Leche cortada",
       "precio": 100,
       "id": 6
+    },
+    {
+      "nombre": "Voka",
+      "precio": 500,
+      "id": 7
     }
   ]
 }

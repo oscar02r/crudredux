@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { crearNuevoProductoAction } from '../actions/productoActions';
+import { mostrarAlerta, ocutarAlertaAction } from '../actions/alertaActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const NuevoProducto = ({history}) => {
@@ -13,16 +14,25 @@ const NuevoProducto = ({history}) => {
   //Accediendo al state de productos
   const cargando = useSelector( state => state.productos.loading );
   const error = useSelector(state => state.productos.error);
-
+   //Accediendo al state de alerta
+  const alerta = useSelector(state => state.alerta.alerta);
+   
   //Mandar a llamar el action de productoAction
   const agregarProducto = (producto) => dispath(crearNuevoProductoAction(producto));
   
   const submitNuevoProducto = e => {
+
     e.preventDefault();
     if ( nombre.trim() === '' || precio <= 0 ) {
-      console.log('Error');
+      const alerta = {
+        msg:'Ambos campos son obligatorios',
+        clases: 'alert alert-danger text-center text-uppercase p3'
+      };
+      dispath( mostrarAlerta(alerta) );
       return;
     }
+    
+    dispath(ocutarAlertaAction());
     agregarProducto({
       nombre,
       precio
@@ -38,6 +48,7 @@ const NuevoProducto = ({history}) => {
         <div className="card">
           <div className="card-body">
             <h2 className="text-center">Agregar Nuevo Producto</h2>
+            { alerta ? <p className={alerta.clases}> {alerta.msg}</p> : null}
             <form onSubmit= {submitNuevoProducto} >
                 <div className="form-group">
                     <label htmlFor="">Nombre Producto</label>
