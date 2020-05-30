@@ -11,6 +11,11 @@ import {
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
     PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    COMENZANDO_EDICION_PRODUCTO,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR,
+
 } from '../type';
 
 //Crear nuevos productos
@@ -117,4 +122,41 @@ const eliminarProductoExito = () => ({
 const eliminarProductoError = () => ({
     type: PRODUCTO_ELIMINADO_ERROR,
     payload: true
-})
+});
+
+export function obtenerProductoEditar (producto) {
+       return (dispatch) => {
+           dispatch(obtenerProductoEditarAction(producto));
+       }
+}
+
+const obtenerProductoEditarAction = producto => ({
+    type:OBTENER_PRODUCTO_EDITAR,
+    payload: producto
+});
+
+export function editarProductoAction(producto) {
+       return async (dispatch) => {
+           dispatch(editarProducto());
+           try {
+               await clienteAxios.put(`/productos/${producto.id}`, producto);
+               dispatch(editarProductoExito(producto));
+           } catch (error) {
+             dispatch(editarProductoError());
+           }
+       };
+}
+
+const editarProducto = () =>({
+     type: COMENZANDO_EDICION_PRODUCTO
+});
+
+const editarProductoExito = producto => ({
+    type: PRODUCTO_EDITADO_EXITO,
+    payload: producto
+});
+
+const editarProductoError = () =>({
+    type:PRODUCTO_EDITADO_ERROR,
+    payload: true
+});

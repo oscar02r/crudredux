@@ -2,7 +2,7 @@
   "productos": [
     {
       "nombre": "Jugo de Naranja",
-      "precio": "300",
+      "precio": "200",
       "id": 3
     },
     {
@@ -16,7 +16,7 @@
       "id": 5
     },
     {
-      "nombre": "Leche",
+      "nombre": "Leche cortada",
       "precio": 100,
       "id": 6
     }

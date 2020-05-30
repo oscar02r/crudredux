@@ -18,8 +18,8 @@ const Productos = () => {
 
     //obtener state
     const productos = useSelector( state => state.productos.productos);
-    const error = useSelector(state => state.productos.error);
-    const cargando = useSelector( state => state.productos.loading);
+    const error     = useSelector(state => state.productos.error);
+    const cargando  = useSelector( state => state.productos.loading);
 
     return ( 
         <>
