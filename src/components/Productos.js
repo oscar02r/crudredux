@@ -36,7 +36,7 @@ const Productos = () => {
             </thead>
             <tbody>
               { 
-                productos.length === 0 ? 'No hay productos' : 
+                productos.length === 0 ? ( <tr><td>No hay Productos</td></tr>) : 
                 (
                   productos.map( producto => (
                     <Producto
